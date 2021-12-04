@@ -2,6 +2,7 @@ package com.finallion;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ public class Main {
     public final static String path = "C:\\Users\\lbret\\Desktop\\Modding\\AdventOfCode2021\\src\\com\\finallion\\ressources\\Day";
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //DayOne.dayOne();
         //DayTwo.dayTwo();
         DayThree.dayThree();

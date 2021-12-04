@@ -1,36 +1,26 @@
 package com.finallion;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DayThree {
-    private static List<String> binary = new ArrayList<>();
 
-    public static void dayThree() {
+    public static void dayThree() throws IOException {
         String path = Main.getPath("Three");
-        File file = new File(path);
+        List<String> binary = Files.lines(Paths.get(path)).collect(Collectors.toList());
 
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNext()) {
-                binary.add(scanner.nextLine());
-
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + path);
-        }
-
-        countBits();
+        getGammaAndEpsilon(binary);
 
     }
 
-    private static void countBits() {
-        int[] counter = new int[12];
+    private static void getGammaAndEpsilon(List<String> binary) {
+        int[] counter = new int[binary.get(0).length()];
 
         for (String s : binary) {
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < binary.get(0).length(); i++) {
                 if (s.charAt(i) == '0') {
                     counter[i] -= 1;
                 } else {
@@ -40,23 +30,54 @@ public class DayThree {
 
         }
 
-        StringBuilder gamma = new StringBuilder();
-        StringBuilder epsilon = new StringBuilder();
+        String gamma = "";
+        String epsilon = "";
         for (Integer integer : counter) {
-            if (integer < 0) {
-                gamma.append(0);
-                epsilon.append(1);
-            } else {
-                gamma.append(1);
-                epsilon.append(0);
-            }
+            gamma += integer < 0 ? 0 : 1;
+            epsilon += integer < 0 ? 1 : 0;
         }
 
-        int gammaInt = Integer.parseInt(gamma.toString(), 2);
-        int epsilonInt = Integer.parseInt(epsilon.toString(), 2);
-        System.out.println("Gamma: " + gammaInt);
-        System.out.println("Epsilon: " + epsilonInt);
-        System.out.println("The result of Day Three Part One: " + gammaInt * epsilonInt);
 
+        System.out.println(gamma);
+        System.out.println(epsilon);
+        System.out.println("The result of Day Three Part One: " + Integer.parseInt(gamma, 2) * Integer.parseInt(epsilon, 2));
+        System.out.println("The result of Day Three Part Two: " + getOxygenAndCO2(binary, "gamma") * getOxygenAndCO2(binary, "epsilon"));
+
+    }
+
+    private static int getOxygenAndCO2(List<String> binary, String value) {
+
+        for (int i = 0; i < binary.get(0).length(); i++) {
+            int balance = 0;
+            for (String s : binary) {
+                if (s.charAt(i) == '1') {
+                    balance++;
+                } else {
+                    balance--;
+                }
+
+            }
+
+            // collect all matches from round
+            List<String> matches = new ArrayList<>();
+            for (String s : binary) {
+                if (balance >= 0) {
+                    if ((value.equals("gamma") && s.charAt(i) == '1') || (value.equals("epsilon") && s.charAt(i) == '0')) {
+                        matches.add(s);
+                    }
+                } else {
+                    if ((value.equals("gamma") && s.charAt(i) == '0') || (value.equals("epsilon") && s.charAt(i) == '1')) {
+                        matches.add(s);
+                    }
+                }
+            }
+
+            // iterate again through matches (for-loop stop point is binary.get(0).length)
+            binary = matches;
+            if (binary.size() == 1) {
+                return Integer.parseInt(binary.get(0), 2);
+            }
+        }
+        return 0;
     }
 }
