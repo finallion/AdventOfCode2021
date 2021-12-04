@@ -14,7 +14,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         //DayOne.dayOne();
         //DayTwo.dayTwo();
-        DayThree.dayThree();
+        //DayThree.dayThree();
+        DayFour.dayFour();
     }
 
     public static String getPath(String dayNumber) {
