@@ -1,11 +1,10 @@
 package com.finallion;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
     public final static String path = "C:\\Users\\lbret\\Desktop\\Modding\\AdventOfCode2021\\src\\com\\finallion\\ressources\\Day";
@@ -15,7 +14,8 @@ public class Main {
         //DayOne.dayOne();
         //DayTwo.dayTwo();
         //DayThree.dayThree();
-        DayFour.dayFour();
+        //DayFour.dayFour();
+        DayFive.dayFive();
     }
 
     public static String getPath(String dayNumber) {
