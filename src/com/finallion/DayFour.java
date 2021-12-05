@@ -2,13 +2,7 @@ package com.finallion;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DayFour {
@@ -35,31 +29,74 @@ public class DayFour {
     }
 
     private static void playBingo(List<Integer> numbers, List<int[][]> matrices) {
-        for (Integer draw : numbers) {
+        Set<Integer> winners = new HashSet<>();
 
+        // iterate through all draw
+        // for each draw iterate through every matrix and set the drawn number
+        // if then the matrix wins, put it into the set
+        // if the set reaches 99 (there are 100 matrices), print the last remaining.
+        for (Integer draw : numbers) {
+            for (int i = 0; i < matrices.size(); i++) {
+                if (winners.contains(i)) {
+                    continue;
+                }
+
+                for (int ii = 0; ii < 5; ii++) {
+                    for (int iii = 0; iii < 5; iii++) {
+                        if (winners.size() == 99) {
+                            printMatrix(matrices.get(i));
+                            int result = calculateRemaining(matrices.get(i));
+                            System.out.println("Draw : " + draw);
+                            System.out.println("The result of Day Three Part Two is: " + result * draw);
+                            return;
+                        }
+
+
+                        // add wining matrix to blacklist
+                        if (checkRow(matrices.get(i)) || checkColumn(matrices.get(i))) {
+                            winners.add(i);
+                        }
+
+                        // set drawn number to matrix
+                        if (matrices.get(i)[ii][iii] == draw) {
+                            matrices.get(i)[ii][iii] = -1;
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+
+
+        /*
+        ------ PART ONE -----
+
+        for (Integer draw : numbers) {
             for (int[][] matrix : matrices) {
                 for (int i = 0; i < 5; i++) {
                     for (int ii = 0; ii < 5; ii++) {
-
                         if (matrix[i][ii] == draw) {
                             matrix[i][ii] = -1;
                         }
-
                         if (checkRow(matrix) || checkColumn(matrix)) {
                             printMatrix(matrix);
-                            int result = calculateRemainding(matrix);
+                            int result = calculateRemaining(matrix);
                             System.out.println("The result of Day Three Part One is: " + result * draw);
                             return;
                         }
                     }
                 }
             }
-
-
         }
+
+         */
     }
 
-    private static int calculateRemainding(int[][] matrix) {
+
+    // calculates all remaining fields that are not yet drawn
+    private static int calculateRemaining(int[][] matrix) {
         int result = 0;
         for (int i = 0; i < 5; i++) {
             for (int ii = 0; ii < 5; ii++) {
@@ -100,19 +137,21 @@ public class DayFour {
     }
 
     private static boolean checkColumn(int[][] matrix) {
-        boolean checker = true;
-
         for (int i = 0; i < 5; i++) {
-            checker = true;
+            int counter = 0;
             for (int ii = 0; ii < 5; ii++) {
-                if (matrix[ii][i] != -1) {
-                    checker = false;
-                    break;
+                if (matrix[ii][i] == -1) {
+                    counter++;
                 }
             }
+
+            if (counter == 5) {
+                return true;
+            }
+
         }
 
-        return checker;
+        return false;
     }
 
 
