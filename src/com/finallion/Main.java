@@ -16,7 +16,8 @@ public class Main {
         //DayThree.dayThree();
         //DayFour.dayFour();
         //DayFive.dayFive();
-        DaySix.daySix();
+        //DaySix.daySix();
+        DaySeven.daySeven();
     }
 
     public static String getPath(String dayNumber) {
