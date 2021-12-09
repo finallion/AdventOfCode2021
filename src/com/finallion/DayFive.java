@@ -14,7 +14,7 @@ public class DayFive {
 
     public static void dayFive() {
         String path = Main.getPath("Five");
-        Map<Pair, Pair> pairs = new HashMap<>();
+        Map<Main.Pair, Main.Pair> pairs = new HashMap<>();
         int[][] diagram = new int[1000][1000];
 
         try (Scanner scanner = new Scanner(new File(path))) {
@@ -25,14 +25,14 @@ public class DayFive {
                 String[] stringPairs = line.split(" -> "); // [(1,2),(3,4)]
                 String[] xyOne = stringPairs[0].split(","); // [1,2]
                 String[] xyTwo = stringPairs[1].split(","); // [3,4]
-                pairs.put(new Pair(Integer.parseInt(xyOne[0]), Integer.parseInt(xyOne[1])), new Pair(Integer.parseInt(xyTwo[0]), Integer.parseInt(xyTwo[1])));
+                pairs.put(new Main.Pair(Integer.parseInt(xyOne[0]), Integer.parseInt(xyOne[1])), new Main.Pair(Integer.parseInt(xyTwo[0]), Integer.parseInt(xyTwo[1])));
 
             }
         } catch (FileNotFoundException e) {
             System.out.println("No file found: " + path);
         }
 
-        for (Pair keys : pairs.keySet()) {
+        for (Main.Pair keys : pairs.keySet()) {
             int keyX = keys.getX();
             int valueX = pairs.get(keys).getX();
             int keyY = keys.getY();
@@ -121,28 +121,6 @@ public class DayFive {
     }
 
 
-    private static class Pair {
-        int xNode;
-        int yNode;
-
-        public Pair(int x, int y) {
-            this.xNode = x;
-            this.yNode = y;
-        }
-
-        public int getX() {
-            return xNode;
-        }
-
-        public int getY() {
-            return yNode;
-        }
-
-        @Override
-        public String toString() {
-            return "X: " + getX() + ", Y: " + getY();
-        }
-    }
 
 }
 
