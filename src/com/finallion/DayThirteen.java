@@ -172,7 +172,7 @@ public class DayThirteen {
             }
         }
 
-        System.out.println("The result of Day Thirteen Part One is: ");
+        System.out.println("The result of Day Thirteen Part Two is: ");
         printMatrix(matrix);
 
     }
