@@ -9,6 +9,7 @@ import java.util.*;
 public class DayThirteen {
 
     public static void dayThirteen() {
+
         String path = Main.getPath("Thirteen");
 
         List<String> lines = new ArrayList<>();

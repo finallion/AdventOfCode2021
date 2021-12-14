@@ -24,7 +24,9 @@ public class Main {
         //DayTen.dayTen();
         //DayEleven.dayEleven();
         //DayTwelve.dayTwelve();
-        DayThirteen.dayThirteen();
+        //DayThirteen.dayThirteen();
+        //DayFourteen.dayFourteen();
+        DayFourteen.dayFourteenBetter();
     }
 
     public static String getPath(String dayNumber) {
