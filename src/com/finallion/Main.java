@@ -3,13 +3,13 @@ package com.finallion;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Main {
     public final static String path = "C:\\Users\\lbret\\Desktop\\Modding\\AdventOfCode2021\\src\\com\\finallion\\resources\\Day";
-
 
     public static void main(String[] args) throws IOException {
         //DayOne.dayOne();
@@ -26,12 +26,35 @@ public class Main {
         //DayTwelve.dayTwelve();
         //DayThirteen.dayThirteen();
         //DayFourteen.dayFourteen();
-        DayFourteen.dayFourteenBetter();
+        DayFifteen.dayFifteen();
+
     }
 
     public static String getPath(String dayNumber) {
         return path + dayNumber + "Input";
 
+    }
+
+    public static List<Pair> getDiagonalOffsets() {
+        List<Main.Pair> offsets = new ArrayList<>();
+        offsets.add(new Main.Pair(1, 0));
+        offsets.add(new Main.Pair(-1, 0));
+        offsets.add(new Main.Pair(0, 1));
+        offsets.add(new Main.Pair(0, -1));
+        offsets.add(new Main.Pair(1, 1));
+        offsets.add(new Main.Pair(1, -1));
+        offsets.add(new Main.Pair(-1, 1));
+        offsets.add(new Main.Pair(-1, -1));
+        return offsets;
+    }
+
+    public static List<Pair> getOffsets() {
+        List<Main.Pair> offsets = new ArrayList<>();
+        offsets.add(new Main.Pair(1, 0));
+        offsets.add(new Main.Pair(-1, 0));
+        offsets.add(new Main.Pair(0, 1));
+        offsets.add(new Main.Pair(0, -1));
+        return offsets;
     }
 
     public static class Pair {
@@ -82,6 +105,16 @@ public class Main {
         public int hashCode() {
             return Objects.hash(xNode, yNode);
         }
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int ii = 0; ii < matrix[0].length; ii++) {
+                System.out.print(matrix[i][ii] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("--------------");
     }
 
 

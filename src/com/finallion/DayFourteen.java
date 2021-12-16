@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public class DayFourteen {
 
-    public static void dayFourteenBetter() {
+    public static void dayFourteen() {
         String path = Main.getPath("Fourteen");
 
         String startTemplate = "";
